@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cn.lankton.swipelinearlayout.lib.SwipeLinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/sll"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/ll_left"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:gravity="center_vertical">
+        <ImageView
+            android:layout_width="78dp"
+            android:layout_height="78dp"
+            android:src="@drawable/baby"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:textSize="16sp"
+            android:text="click  or  drag  ~"/>
+    </LinearLayout>
+    <TextView
+        android:id="@+id/tv_delete"
+        android:layout_width="100dp"
+        android:layout_height="match_parent"
+        android:listSelector="#000000"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        android:background="#FF3B30"
+        android:gravity="center"
+        android:text="knock"/>
+</cn.lankton.swipelinearlayout.lib.SwipeLinearLayout>
