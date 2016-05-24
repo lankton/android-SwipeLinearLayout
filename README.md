@@ -27,6 +27,8 @@
   </LinearLayout>
 </cn.lankton.swipelinearlayout.lib.SwipeLinearLayout>
 ```
+第一个子元素是未侧滑时就显示的部分， 第二个子元素是会被侧滑出来的部分。 
+
 SwipeLinearLayout的orientation随便设置，反正都会当成horizontal处理。 
 
 ##相关博文##
