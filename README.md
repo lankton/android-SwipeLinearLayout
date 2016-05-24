@@ -12,7 +12,7 @@
 和普通LinearLayout一样使用，内部包含2个子元素即可。
 示例:
 ```
-<cn.lankton.swipelinearlayout.lib.SwipeLinearLayout
+<xx.SwipeLinearLayout
   xxxx>
   <LinearLayout
     android:layout-width="match_parent"
@@ -25,7 +25,7 @@
     xxxx>
     ... ...
   </LinearLayout>
-</cn.lankton.swipelinearlayout.lib.SwipeLinearLayout>
+</xx.SwipeLinearLayout>
 ```
 第一个子元素是未侧滑时就显示的部分， 第二个子元素是会被侧滑出来的部分。 
 
