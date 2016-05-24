@@ -6,7 +6,7 @@
 <img src="https://github.com/lankton/android-SwipeLinearLayout/blob/master/pictures/swipelinearlayout.gif?raw=true" width="260px"/>  
 解决了item和ListView的滑动冲突， 同时每个item及其上面的控件可以正常点击。
 
-代码比较简单，就不上传到JCenter了。 控件本身就只有一个文件: SwipeLinearLayout.java, 有需要可以直接复制或者修改。
+代码比较简单，就不上传到JCenter了。 控件本身就只有一个文件: [SwipeLinearLayout.java](https://github.com/lankton/android-SwipeLinearLayout/blob/master/app/src/main/java/cn/lankton/swipelinearlayout/lib/SwipeLinearLayout.java), 有需要可以直接复制或者修改。
 
 ##使用##
 和普通LinearLayout一样使用，内部包含2个子元素即可。
