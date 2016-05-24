@@ -45,6 +45,7 @@ public class SwipeLinearLayout extends LinearLayout {
     public SwipeLinearLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         mScroller = new Scroller(context);
+        this.setOrientation(HORIZONTAL);
     }
 
     @Override
