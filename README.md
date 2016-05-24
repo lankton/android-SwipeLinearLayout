@@ -30,3 +30,4 @@
 SwipeLinearLayout的orientation随便设置，反正都会当成horizontal处理。 
 
 ##相关博文##
+[【Android】自定义LinearLayout实现侧滑布局--SwipeLinearLayout](http://blog.csdn.net/u013015161/article/details/51495015)
