@@ -21,7 +21,6 @@ public class MainActivity extends AppCompatActivity {
     ListView listView;
     MyAdapter adapter;
     List<SwipeLinearLayout> swipeLinearLayouts = new ArrayList<>();
-    SwipeLinearLayout curSll;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,19 +88,14 @@ public class MainActivity extends AppCompatActivity {
 
 
         @Override
-        public void onBeginScroll(SwipeLinearLayout thisSll, boolean isHorizontal) {
+        public void onDirectionJudged(SwipeLinearLayout thisSll, boolean isHorizontal) {
             if (false == isHorizontal) {
-                // 可以理解为sll丢失了事件，后续都会被上层拦截
                 for (SwipeLinearLayout sll : swipeLinearLayouts) {
                     if (null == sll) {
                         continue;
                     }
                     sll.scrollAuto(SwipeLinearLayout.DIRECTION_SHRINK);
-                    if (curSll == thisSll) {
-                        sll.setDragable(true);
-                    }
                 }
-                curSll = null;
             } else {
                 for (SwipeLinearLayout sll : swipeLinearLayouts) {
                     if (null == sll) {
@@ -115,39 +109,6 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        @Override
-        public void onTouchUp(SwipeLinearLayout thisSll) {
-            Log.v("lanktondebug", "up");
-            if (curSll == thisSll) {
-                // 某个sll结束拖动(可能并未复位)， 其他sll可以侧滑
-                for (SwipeLinearLayout sll : swipeLinearLayouts) {
-                    if (null == sll) {
-                        continue;
-                    }
-                    if (!sll.equals(thisSll)) {
-                        sll.setDragable(true);
-                    }
-                }
-                curSll = null;
-            }
-        }
-
-        @Override
-        public void onTouchDown(SwipeLinearLayout thisSll) {
-            Log.v("lanktondebug", "down");
-            if (curSll == null) {
-                curSll = thisSll;
-                Log.v("lanktondebug", "false all");
-                for (SwipeLinearLayout sll : swipeLinearLayouts) {
-                    if (null == sll) {
-                        continue;
-                    }
-                    if (!sll.equals(thisSll)) {
-                        sll.setDragable(false);
-                    }
-                }
-            }
-        }
 
         class ViewHolder {
             SwipeLinearLayout sll;

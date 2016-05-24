@@ -2,6 +2,7 @@ package cn.lankton.swipelinearlayout.lib;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewParent;
@@ -21,16 +22,12 @@ public class SwipeLinearLayout extends LinearLayout {
     boolean hasJudged = false;
     boolean ignore = false;
 
-    boolean dragable = true;
-    boolean blocked = false;
-
     public static final int DIRECTION_EXPAND = 0;
     public static final int DIRECTION_SHRINK = 1;
 
     OnSwipeListener onSwipeListener = null;
 
     static float MOVE_JUDGE_DISTANCE = 5;
-//    View v_swipe_to_show;
 
     // 左边部分, 即从开始就显示的部分的长度
     int width_left = 0;
@@ -77,25 +74,14 @@ public class SwipeLinearLayout extends LinearLayout {
     }
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
-        switch (ev.getAction()) {
+        switch (ev.getActionMasked()) {
             case MotionEvent.ACTION_DOWN:
                 disallowParentsInterceptTouchEvent(getParent());
                 hasJudged = false;
                 startX = ev.getX();
                 startY = ev.getY();
-                if (onSwipeListener != null) {
-                    onSwipeListener.onTouchDown(this);
-                }
-                if (dragable) {
-                    blocked = false;
-                } else {
-                    blocked = true;
-                }
                 break;
             case MotionEvent.ACTION_MOVE:
-                if (blocked) {
-                    break;
-                }
                 float curX = ev.getX();
                 float curY = ev.getY();
                 if (hasJudged == false) {
@@ -105,11 +91,11 @@ public class SwipeLinearLayout extends LinearLayout {
                         if (Math.abs(dy) > Math.abs(dx)) {
                             allowParentsInterceptTouchEvent(getParent());
                             if (null != onSwipeListener) {
-                                onSwipeListener.onBeginScroll(this, false);
+                                onSwipeListener.onDirectionJudged(this, false);
                             }
                         } else {
                             if (null != onSwipeListener) {
-                                onSwipeListener.onBeginScroll(this, true);
+                                onSwipeListener.onDirectionJudged(this, true);
                             }
                             lastX = curX;
                             lastY = curY;
@@ -120,9 +106,6 @@ public class SwipeLinearLayout extends LinearLayout {
                 }
                 break;
             case MotionEvent.ACTION_UP:
-                if (null != onSwipeListener) {
-                    onSwipeListener.onTouchUp(this);
-                }
                 break;
             default:
                 break;
@@ -132,7 +115,7 @@ public class SwipeLinearLayout extends LinearLayout {
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
-        if (hasJudged || blocked) {
+        if (hasJudged) {
             return true;
         }
         return super.onInterceptTouchEvent(ev);
@@ -140,17 +123,12 @@ public class SwipeLinearLayout extends LinearLayout {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        if (blocked) {
-            return true;
-        }
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
+            case MotionEvent.ACTION_POINTER_DOWN:
                 lastX = event.getX();
                 lastY = event.getY();
                 startScrollX = getScrollX();
-                if (null != onSwipeListener) {
-                    onSwipeListener.onTouchDown(this);
-                }
                 break;
             case MotionEvent.ACTION_MOVE:
                 if (ignore) {
@@ -215,28 +193,14 @@ public class SwipeLinearLayout extends LinearLayout {
         this.onSwipeListener = listener;
     }
 
-    public void setDragable(boolean isDragable) {
-        dragable = isDragable;
-    }
     public interface OnSwipeListener {
         /**
-         * 开始滑动
+         * 手指滑动方向明确了
          * @param sll  拖动的SwipeLinearLayout
          * @param isHorizontal 滑动方向是否为水平
          */
-        public void onBeginScroll(SwipeLinearLayout sll, boolean isHorizontal);
+        void onDirectionJudged(SwipeLinearLayout sll, boolean isHorizontal);
 
-        /**
-         *手指离开
-         * @param sll
-         */
-        public void onTouchUp(SwipeLinearLayout sll);
-
-        /**
-         * 被手指触碰
-         * @param sll
-         */
-        public void onTouchDown(SwipeLinearLayout sll);
 
     }
 }
