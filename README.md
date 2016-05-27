@@ -15,13 +15,13 @@
 <xx.SwipeLinearLayout
   xxxx>
   <LinearLayout
-    android:layout-width="match_parent"
+    android:layout_width="match_parent"
     xxxx
     xxxx>
     ... ...
   </LinearLayout>
   <LinearLayout
-    android:layout-width="30dp"
+    android:layout_width="100dp"
     xxxx>
     ... ...
   </LinearLayout>
